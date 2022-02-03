@@ -2,45 +2,36 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RadioForm from 'react-native-simple-radio-button';
+import Radiobutton from './components/Radiobutton';
 
 export default function App() {
   const [weight, setWeight] = useState(0);
   const [bottle, setBottle] = useState(1);
   const [time, setTime] = useState(1);
-  const [gender, setGender] = useState('male');
   const [rescolor, setRescolor] = useState({ fontSize:'25px',color: 'lightgreen'});
   const [bloodalcohol, setBloodalcohol] = useState(0);
+  const [gender, setGender] = useState(1);
+  const genderValues = [
+    {
+      label: 'Male',
+      value: 1,
+    },
+    {
+      label: 'Female',
+      value: 2,
+    },
+  ]
+   
+
+  const Bottles = Array(10)
+  .fill('')
+  .map((_,i) => ({label: `${i + 1} bottles`,value: `${i +1}` }))
 
 
- const Bottles= Array();
- Bottles.push({label: '1 bottles', value: 1});
- Bottles.push({label: '2 bottles', value: 2});
- Bottles.push({label: '3 bottles', value: 3});
- Bottles.push({label: '4 bottles', value: 4});
- Bottles.push({label: '5 bottles', value: 5});
- Bottles.push({label: '6 bottles', value: 6});
- Bottles.push({label: '7 bottles', value: 7});
- Bottles.push({label: '8 bottles', value: 8});
- Bottles.push({label: '9 bottles', value: 9});
- Bottles.push({label: '10 bottles', value: 10});
+ const Times = Array(10)
+ .fill('')
+ .map((_,i) => ({label: `${i + 1} hours`,value: `${i +1}` }))
 
-
- const Times= Array();
- Times.push({label: '1 Hours', value: 1});
- Times.push({label: '2 Hours', value: 2});
- Times.push({label: '3 Hours', value: 3});
- Times.push({label: '4 Hours', value: 4});
- Times.push({label: '5 Hours', value: 5});
- Times.push({label: '6 Hours', value: 6});
- Times.push({label: '7 Hours', value: 7});
- Times.push({label: '8 Hours', value: 8});
- Times.push({label: '9 Hours', value: 9});
- Times.push({label: '10 Hours', value: 10});
-
- const genders = [
-   {label: 'Male', value: 'male'},
-   {label: 'Female', value: 'female' }
- ];
 
  function calculate() {
    let result = 0
@@ -52,7 +43,7 @@ export default function App() {
   if (weight===0 ) {
     alert("Please enter your weight!")
   }
-   else if (gender === 'male') {
+   else if (gender === 1) {
      litres = bottle * 0.33
      grams = litres * 8 * 4.5
      burning = weight / 10
@@ -122,10 +113,7 @@ export default function App() {
 
     <View style={styles.field}>
       <Text>Gender</Text>
-      <RadioForm style={styles.radio}
-      buttonSize = {10}
-      radio_props={genders}
-      initial={0}
+      <Radiobutton options={genderValues}
       onPress={(value) => {setGender(value)}}
       />
     </View>
